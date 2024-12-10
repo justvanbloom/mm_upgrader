@@ -13,7 +13,7 @@
 deployedVersion=$(/opt/mattermost/bin/mattermost version | grep -w "Version:" | awk '{print $2}' | tr -d 'v')
 
 # get latest Mattermost version var via GitHub URL
-latestVersion=$(curl -s https://api.github.com/repos/mattermost/mattermost/releases | jq -r '.[].tag_name' | sort -rV | uniq | head -1 | tr -d 'v')
+latestVersion=$(curl -s https://api.github.com/repos/mattermost/mattermost/releases | jq -r '.[] | select(.prerelease==false).tag_name' | sort -rV | uniq | head -1 | tr -d 'v')
 
 # for log
 echo -e "Date/Time:" $(date)
